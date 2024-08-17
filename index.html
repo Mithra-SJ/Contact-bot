@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Telegram Test Notification</title>
+</head>
+<body>
+  <h1>Send Test Notification</h1>
+  <form id="notificationForm">
+    <label for="message">Message:</label>
+    <input type="text" id="message" name="message" required>
+    <button type="submit">Send Notification</button>
+  </form>
+  <script>
+    document.getElementById('notificationForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const message = document.getElementById('message').value;
+      try {
+        const response = await fetch('http://localhost:3000/notify', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ message })
+        });
+        const result = await response.text();
+        alert('Response: ' + result);
+      } catch (error) {
+        alert('Error: ' + error.message);
+      }
+    });
+  </script>
+</body>
+</html>
